@@ -6,12 +6,10 @@ const urlsToCache = [
     '/js/app.js',
     '/js/calculations.js',
     '/js/billing.js',
-    '/manifest.json',
-    '/icons/icon-192.png',
-    '/icons/icon-512.png'
+    '/js/db.js',
+    '/manifest.json'
 ];
 
-// Install service worker
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -23,7 +21,6 @@ self.addEventListener('install', (event) => {
     self.skipWaiting();
 });
 
-// Fetch from cache
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
@@ -47,7 +44,6 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// Activate and clean old caches
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {

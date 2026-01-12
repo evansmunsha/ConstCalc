@@ -13,7 +13,6 @@
     --text: #1f2937;
     --text-light: #6b7280;
     --border: #e5e7eb;
-    --success: #10b981;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -30,7 +29,6 @@ body {
     padding: 16px;
 }
 
-/* Header */
 .header {
     background: var(--card);
     border-radius: 12px;
@@ -52,16 +50,7 @@ body {
 }
 
 .app-icon {
-    background: var(--primary);
-    padding: 12px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.app-icon svg {
-    color: white;
+    font-size: 32px;
 }
 
 h1 {
@@ -105,7 +94,6 @@ h1 {
     gap: 8px;
 }
 
-/* Ad Banner */
 .ad-banner {
     background: #1f2937;
     color: white;
@@ -146,7 +134,6 @@ h1 {
     color: white;
 }
 
-/* Tabs */
 .tabs {
     background: var(--card);
     border-radius: 12px;
@@ -172,11 +159,6 @@ h1 {
     color: var(--text-light);
 }
 
-.tab svg {
-    width: 24px;
-    height: 24px;
-}
-
 .tab span {
     font-size: 12px;
     font-weight: 600;
@@ -191,7 +173,6 @@ h1 {
     background: #e5e7eb;
 }
 
-/* Content */
 .content {
     background: var(--card);
     border-radius: 12px;
@@ -272,7 +253,6 @@ h2 {
     cursor: not-allowed;
 }
 
-/* Results */
 .result {
     margin-top: 24px;
 }
@@ -315,7 +295,6 @@ h2 {
     color: var(--primary);
 }
 
-/* Pro Overlay */
 .pro-overlay {
     position: absolute;
     top: 0;
@@ -336,11 +315,6 @@ h2 {
     border-radius: 12px;
     text-align: center;
     max-width: 320px;
-}
-
-.pro-overlay-content svg {
-    color: var(--secondary);
-    margin-bottom: 16px;
 }
 
 .pro-overlay-content h3 {
@@ -370,7 +344,6 @@ h2 {
     background: #fcd34d;
 }
 
-/* Bottom Ad */
 .bottom-ad {
     background: #f3f4f6;
     border-radius: 12px;
@@ -384,7 +357,8 @@ h2 {
     margin-bottom: 12px;
 }
 
-.bottom-ad button {
+.bottom-ad button,
+.show-upgrade-modal {
     background: var(--primary);
     color: white;
     border: none;
@@ -395,11 +369,11 @@ h2 {
     transition: background 0.2s;
 }
 
-.bottom-ad button:hover {
+.bottom-ad button:hover,
+.show-upgrade-modal:hover {
     background: var(--primary-dark);
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -428,7 +402,7 @@ h2 {
 }
 
 .modal-icon {
-    color: var(--secondary);
+    font-size: 64px;
     margin-bottom: 16px;
 }
 
@@ -527,7 +501,6 @@ h2 {
     100% { transform: rotate(360deg); }
 }
 
-/* Install Banner */
 .install-banner {
     position: fixed;
     bottom: 0;
@@ -581,7 +554,10 @@ h2 {
     font-size: 14px;
 }
 
-/* Responsive */
+.hidden {
+    display: none !important;
+}
+
 @media (max-width: 640px) {
     .tabs {
         grid-template-columns: repeat(2, 1fr);
@@ -600,8 +576,4 @@ h2 {
         flex-direction: column;
         text-align: center;
     }
-}
-
-.hidden {
-    display: none !important;
 }

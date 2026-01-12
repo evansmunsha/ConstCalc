@@ -1,5 +1,3 @@
-// Calculation functions
-
 function calculateCement() {
     const length = parseFloat(document.getElementById('cement-length').value);
     const width = parseFloat(document.getElementById('cement-width').value);
@@ -35,11 +33,20 @@ function calculateCement() {
             break;
     }
     
-    showResult('cement-result', {
+    const result = {
         'Volume': `${volume.toFixed(2)} m³`,
         'Cement Bags': Math.ceil(cementBags),
         'Sand': `${sand.toFixed(2)} m³`,
         'Aggregate': `${aggregate.toFixed(2)} m³`
+    };
+    
+    showResult('cement-result', result);
+    
+    saveCalculation({
+        type: 'cement',
+        timestamp: Date.now(),
+        inputs: { length, width, thickness, ratio },
+        results: result
     });
 }
 
@@ -58,10 +65,19 @@ function calculateBrick() {
     const totalBricks = Math.ceil(area * bricksPerSqM);
     const mortar = area * (thickness / 1000) * 0.25;
     
-    showResult('brick-result', {
+    const result = {
         'Wall Area': `${area.toFixed(2)} m²`,
         'Bricks Needed': totalBricks,
         'Mortar': `${mortar.toFixed(2)} m³`
+    };
+    
+    showResult('brick-result', result);
+    
+    saveCalculation({
+        type: 'brick',
+        timestamp: Date.now(),
+        inputs: { length, height, thickness },
+        results: result
     });
 }
 
@@ -88,9 +104,18 @@ function calculateArea() {
             break;
     }
     
-    showResult('area-result', {
+    const result = {
         'Square Meters': `${area.toFixed(2)} m²`,
         'Square Feet': `${(area * 10.764).toFixed(2)} ft²`
+    };
+    
+    showResult('area-result', result);
+    
+    saveCalculation({
+        type: 'area',
+        timestamp: Date.now(),
+        inputs: { length, width, shape },
+        results: result
     });
 }
 
@@ -106,10 +131,19 @@ function calculateVolume() {
     
     const volume = length * width * height;
     
-    showResult('volume-result', {
+    const result = {
         'Cubic Meters': `${volume.toFixed(2)} m³`,
         'Cubic Feet': `${(volume * 35.315).toFixed(2)} ft³`,
         'Liters': `${(volume * 1000).toFixed(2)} L`
+    };
+    
+    showResult('volume-result', result);
+    
+    saveCalculation({
+        type: 'volume',
+        timestamp: Date.now(),
+        inputs: { length, width, height },
+        results: result
     });
 }
 
@@ -138,24 +172,3 @@ function showError(elementId, message) {
         </div>
     `;
 }
-
-// Update area calculator labels based on shape
-document.getElementById('area-shape')?.addEventListener('change', (e) => {
-    const shape = e.target.value;
-    const label1 = document.getElementById('area-label1');
-    const label2 = document.getElementById('area-label2');
-    const widthGroup = document.getElementById('area-width-group');
-    
-    if (shape === 'circle') {
-        label1.textContent = 'Radius (m)';
-        widthGroup.style.display = 'none';
-    } else if (shape === 'triangle') {
-        label1.textContent = 'Height (m)';
-        label2.textContent = 'Base (m)';
-        widthGroup.style.display = 'block';
-    } else {
-        label1.textContent = 'Length (m)';
-        label2.textContent = 'Width (m)';
-        widthGroup.style.display = 'block';
-    }
-});

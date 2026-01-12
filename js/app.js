@@ -1,8 +1,5 @@
-// App initialization and UI management
-
 let deferredPrompt;
 
-// Service Worker Registration
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
@@ -15,21 +12,15 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// PWA Install Prompt
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    showInstallBanner();
-});
-
-function showInstallBanner() {
     const banner = document.getElementById('install-banner');
     if (banner) {
         banner.style.display = 'block';
     }
-}
+});
 
-// Install button handler
 document.addEventListener('DOMContentLoaded', () => {
     const installBtn = document.getElementById('install-btn');
     if (installBtn) {
@@ -37,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                console.log(`User response: ${outcome}`);
+                console.log('User response to install prompt:', outcome);
                 deferredPrompt = null;
                 const banner = document.getElementById('install-banner');
                 if (banner) banner.style.display = 'none';
@@ -52,28 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (banner) banner.style.display = 'none';
         });
     }
-});
-
-// Tab Navigation
-document.addEventListener('DOMContentLoaded', () => {
+    
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
             const tabName = tab.dataset.tab;
             
-            // Remove active class from all tabs and contents
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
-            // Add active class to clicked tab and corresponding content
             tab.classList.add('active');
             const tabContent = document.getElementById(`${tabName}-tab`);
             if (tabContent) tabContent.classList.add('active');
         });
     });
-});
-
-// Close Ad Banner
-document.addEventListener('DOMContentLoaded', () => {
+    
     const closeAdBtn = document.getElementById('close-ad');
     if (closeAdBtn) {
         closeAdBtn.addEventListener('click', () => {
@@ -81,10 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (adBanner) adBanner.style.display = 'none';
         });
     }
-});
-
-// Calculator button handlers
-document.addEventListener('DOMContentLoaded', () => {
+    
     document.querySelectorAll('.calculate-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const calculator = e.target.dataset.calculator;
@@ -106,11 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-});
-
-// Upgrade modal handlers
-document.addEventListener('DOMContentLoaded', () => {
-    // Show upgrade modal buttons
+    
     const upgradeBtn = document.getElementById('upgrade-btn');
     if (upgradeBtn) {
         upgradeBtn.addEventListener('click', () => {
@@ -118,21 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // All upgrade overlay buttons
     document.querySelectorAll('.upgrade-btn-overlay').forEach(btn => {
         btn.addEventListener('click', () => {
             if (window.billing) window.billing.showUpgradeModal();
         });
     });
     
-    // Bottom ad upgrade button
     document.querySelectorAll('.show-upgrade-modal').forEach(btn => {
         btn.addEventListener('click', () => {
             if (window.billing) window.billing.showUpgradeModal();
         });
     });
     
-    // Purchase button
     const purchaseBtn = document.getElementById('purchase-btn');
     if (purchaseBtn) {
         purchaseBtn.addEventListener('click', () => {
@@ -140,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Cancel button
     const cancelBtn = document.querySelector('.cancel-btn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', () => {
@@ -149,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Initialize billing on load
 window.addEventListener('load', () => {
     if (window.billing) {
         window.billing.initializeBilling();
@@ -157,38 +128,18 @@ window.addEventListener('load', () => {
     }
 });
 
-// Check for updates
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then((registration) => {
         registration.update();
     });
 }
 
-// Offline/Online status
 window.addEventListener('online', () => {
     console.log('Back online');
 });
 
 window.addEventListener('offline', () => {
     console.log('Gone offline');
-});
-
-// Analytics (optional - add your tracking code)
-function trackEvent(category, action, label) {
-    // Add your analytics tracking here
-    console.log('Event:', category, action, label);
-}
-
-// Track calculator usage
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.calculate-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const calculator = e.target.dataset.calculator;
-            if (calculator) {
-                trackEvent('Calculator', 'Calculate', calculator);
-            }
-        });
-    });
 });
 
 console.log('Construction Calculator Pro loaded');
