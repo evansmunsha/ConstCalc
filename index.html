@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional construction calculator for cement, bricks, area, and volume calculations">
+    <meta name="theme-color" content="#f97316">
+    <title>Construction Calculator Pro</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:;">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="app-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 13.5V3.5l6 6 6-6v10"></path>
+                            <path d="M6 18.5h12"></path>
+                            <path d="M6 14h12v4.5H6z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Construction Calculator</h1>
+                        <p class="subtitle">Professional Tools for Builders</p>
+                    </div>
+                </div>
+                <button id="upgrade-btn" class="pro-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+                    </svg>
+                    Upgrade
+                </button>
+                <div id="pro-badge-active" class="pro-badge-active" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+                    </svg>
+                    PRO
+                </div>
+            </div>
+        </header>
+
+        <!-- Ad Banner -->
+        <div id="ad-banner" class="ad-banner">
+            <div class="ad-content">
+                <div>
+                    <p class="ad-title">🎯 Special Offer - Go Pro Today!</p>
+                    <p class="ad-subtitle">Remove ads & unlock advanced tools</p>
+                </div>
+                <button id="close-ad" class="close-ad">×</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <nav class="tabs">
+            <button class="tab active" data-tab="cement">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+                <span>Cement</span>
+            </button>
+            <button class="tab" data-tab="brick">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <path d="M12 3v18"></path>
+                </svg>
+                <span>Bricks</span>
+            </button>
+            <button class="tab" data-tab="area">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3h7v7H3z"></path>
+                    <path d="M14 3h7v7h-7z"></path>
+                    <path d="M14 14h7v7h-7z"></path>
+                    <path d="M3 14h7v7H3z"></path>
+                </svg>
+                <span>Area</span>
+            </button>
+            <button class="tab" data-tab="volume">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span>Volume</span>
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="content">
+            <!-- Cement Calculator -->
+            <div id="cement-tab" class="tab-content active">
+                <h2>Cement & Concrete Calculator</h2>
+                <div class="input-group">
+                    <label>Length (m)</label>
+                    <input type="number" id="cement-length" placeholder="Enter length" step="0.01">
+                </div>
+                <div class="input-group">
+                    <label>Width (m)</label>
+                    <input type="number" id="cement-width" placeholder="Enter width" step="0.01">
+                </div>
+                <div class="input-group">
+                    <label>Thickness (mm)</label>
+                    <input type="number" id="cement-thickness" placeholder="Enter thickness" step="1">
+                </div>
+                <div class="input-group">
+                    <label>Mix Ratio</label>
+                    <select id="cement-ratio">
+                        <option value="1:2:4">1:2:4 (Standard)</option>
+                        <option value="1:1.5:3">1:1.5:3 (Strong)</option>
+                        <option value="1:3:6">1:3:6 (Lean)</option>
+                    </select>
+                </div>
+                <button class="calculate-btn" onclick="calculateCement()">Calculate</button>
+                <div id="cement-result" class="result"></div>
+            </div>
+
+            <!-- Brick Calculator -->
+            <div id="brick-tab" class="tab-content">
+                <div class="pro-overlay">
+                    <div class="pro-overlay-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+                        </svg>
+                        <h3>Pro Feature</h3>
+                        <p>Brick Calculator is available in Pro version</p>
+                        <button class="upgrade-btn-overlay" onclick="showUpgradeModal()">Upgrade to Pro</button>
+                    </div>
+                </div>
+                <h2>Brick Calculator</h2>
+                <div class="input-group">
+                    <label>Wall Length (m)</label>
+                    <input type="number" id="brick-length" placeholder="Enter length" step="0.01" disabled>
+                </div>
+                <div class="input-group">
+                    <label>Wall Height (m)</label>
+                    <input type="number" id="brick-height" placeholder="Enter height" step="0.01" disabled>
+                </div>
+                <div class="input-group">
+                    <label>Wall Thickness</label>
+                    <select id="brick-thickness" disabled>
+                        <option value="115">Half Brick (115mm)</option>
+                        <option value="230">Full Brick (230mm)</option>
+                    </select>
+                </div>
+                <button class="calculate-btn" onclick="calculateBrick()" disabled>Calculate</button>
+                <div id="brick-result" class="result"></div>
+            </div>
+
+            <!-- Area Calculator -->
+            <div id="area-tab" class="tab-content">
+                <div class="pro-overlay">
+                    <div class="pro-overlay-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+                        </svg>
+                        <h3>Pro Feature</h3>
+                        <p>Area Calculator is available in Pro version</p>
+                        <button class="upgrade-btn-overlay" onclick="showUpgradeModal()">Upgrade to Pro</button>
+                    </div>
+                </div>
+                <h2>Area Calculator</h2>
+                <div class="input-group">
+                    <label>Shape</label>
+                    <select id="area-shape" disabled>
+                        <option value="rectangle">Rectangle</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="circle">Circle</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label id="area-label1">Length (m)</label>
+                    <input type="number" id="area-length" placeholder="Enter value" step="0.01" disabled>
+                </div>
+                <div class="input-group" id="area-width-group">
+                    <label id="area-label2">Width (m)</label>
+                    <input type="number" id="area-width" placeholder="Enter value" step="0.01" disabled>
+                </div>
+                <button class="calculate-btn" onclick="calculateArea()" disabled>Calculate</button>
+                <div id="area-result" class="result"></div>
+            </div>
+
+            <!-- Volume Calculator -->
+            <div id="volume-tab" class="tab-content">
+                <div class="pro-overlay">
+                    <div class="pro-overlay-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+                        </svg>
+                        <h3>Pro Feature</h3>
+                        <p>Volume Calculator is available in Pro version</p>
+                        <button class="upgrade-btn-overlay" onclick="showUpgradeModal()">Upgrade to Pro</button>
+                    </div>
+                </div>
+                <h2>Volume Calculator</h2>
+                <div class="input-group">
+                    <label>Length (m)</label>
+                    <input type="number" id="vol-length" placeholder="Enter length" step="0.01" disabled>
+                </div>
+                <div class="input-group">
+                    <label>Width (m)</label>
+                    <input type="number" id="vol-width" placeholder="Enter width" step="0.01" disabled>
+                </div>
+                <div class="input-group">
+                    <label>Height (m)</label>
+                    <input type="number" id="vol-height" placeholder="Enter height" step="0.01" disabled>
+                </div>
+                <button class="calculate-btn" onclick="calculateVolume()" disabled>Calculate</button>
+                <div id="volume-result" class="result"></div>
+            </div>
+        </main>
+
+        <!-- Bottom Ad -->
+        <div id="bottom-ad" class="bottom-ad">
+            <p>💎 Remove ads and unlock all pro tools</p>
+            <button onclick="showUpgradeModal()">Go Pro - $4.99</button>
+        </div>
+    </div>
+
+    <!-- Upgrade Modal -->
+    <div id="upgrade-modal" class="modal">
+        <div class="modal-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="currentColor" class="modal-icon">
+                <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"></path>
+            </svg>
+            <h2>Upgrade to Pro</h2>
+            <p class="modal-subtitle">Unlock all professional construction tools</p>
+            
+            <div class="features-list">
+                <h3>Pro Features:</h3>
+                <ul>
+                    <li>✓ Remove all advertisements</li>
+                    <li>✓ Brick calculator with mortar</li>
+                    <li>✓ Advanced area calculator</li>
+                    <li>✓ Volume calculator (multiple units)</li>
+                    <li>✓ Save calculations offline</li>
+                    <li>✓ Cost estimation tools</li>
+                    <li>✓ Lifetime updates</li>
+                </ul>
+            </div>
+            
+            <div class="price">$4.99 one-time</div>
+            
+            <button id="purchase-btn" class="purchase-btn">Upgrade Now</button>
+            <button class="cancel-btn" onclick="hideUpgradeModal()">Maybe Later</button>
+            
+            <div id="loading-spinner" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install Prompt -->
+    <div id="install-banner" class="install-banner" style="display: none;">
+        <div class="install-content">
+            <p>📱 Install Construction Calculator for offline access</p>
+            <div class="install-buttons">
+                <button id="install-btn" class="install-btn">Install</button>
+                <button id="dismiss-install" class="dismiss-btn">Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts - NO inline handlers -->
+    <script src="js/calculations.js" defer></script>
+    <script src="js/billing.js" defer></script>
+    <script src="js/app.js" defer></script>
+</body>
+</html>
