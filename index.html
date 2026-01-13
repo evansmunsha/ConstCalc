@@ -36,6 +36,10 @@
         </div>
 
         <nav class="tabs">
+            <button class="tab" data-tab="projects">
+                <span style="font-size: 24px;">📋</span>
+                <span>Projects</span>
+            </button>
             <button class="tab active" data-tab="cement">
                 <span style="font-size: 24px;">📦</span>
                 <span>Cement</span>
@@ -52,32 +56,91 @@
                 <span style="font-size: 24px;">📊</span>
                 <span>Volume</span>
             </button>
+            <button class="tab" data-tab="tools">
+                <span style="font-size: 24px;">🛠️</span>
+                <span>Tools</span>
+            </button>
         </nav>
 
         <main class="content">
+            <div id="projects-tab" class="tab-content">
+                <h2>My Projects</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Save and manage your construction projects</p>
+                
+                <div id="current-project-info" style="display: none; background: #fff7ed; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 14px; color: #6b7280; margin-bottom: 4px;">Current Project:</div>
+                            <div id="current-project-name" style="font-size: 18px; font-weight: 600; color: #f97316;"></div>
+                        </div>
+                        <button id="clear-current-project" style="background: #fee2e2; color: #991b1b; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">Clear</button>
+                    </div>
+                </div>
+                
+                <button id="new-project-btn" class="calculate-btn" style="margin-bottom: 20px;">
+                    + New Project
+                </button>
+                
+                <div id="projects-list" style="display: grid; gap: 12px;">
+                    <div style="text-align: center; padding: 40px; color: #9ca3af;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">📋</div>
+                        <p>No saved projects yet</p>
+                        <p style="font-size: 14px;">Create a project and save your calculations</p>
+                    </div>
+                </div>
+            </div>
+
             <div id="cement-tab" class="tab-content active">
                 <h2>Cement & Concrete Calculator</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Calculate cement bags, sand, and aggregate needed</p>
+                
+                <div class="input-group">
+                    <label>Project Name (Optional)</label>
+                    <input type="text" id="cement-project-name" placeholder="e.g., Mr. Banda's Foundation">
+                </div>
+                
                 <div class="input-group">
                     <label>Length (m)</label>
-                    <input type="number" id="cement-length" placeholder="Enter length" step="0.01">
+                    <input type="number" id="cement-length" placeholder="e.g., 5" step="0.01" value="5">
                 </div>
                 <div class="input-group">
                     <label>Width (m)</label>
-                    <input type="number" id="cement-width" placeholder="Enter width" step="0.01">
+                    <input type="number" id="cement-width" placeholder="e.g., 4" step="0.01" value="4">
                 </div>
                 <div class="input-group">
                     <label>Thickness (mm)</label>
-                    <input type="number" id="cement-thickness" placeholder="Enter thickness" step="1">
+                    <input type="number" id="cement-thickness" placeholder="e.g., 100" step="1" value="100">
                 </div>
                 <div class="input-group">
                     <label>Mix Ratio</label>
                     <select id="cement-ratio">
-                        <option value="1:2:4">1:2:4 (Standard)</option>
-                        <option value="1:1.5:3">1:1.5:3 (Strong)</option>
-                        <option value="1:3:6">1:3:6 (Lean)</option>
+                        <option value="1:2:4">1:2:4 (Standard - Foundation)</option>
+                        <option value="1:1.5:3">1:1.5:3 (Strong - Columns)</option>
+                        <option value="1:3:6">1:3:6 (Lean - Mass Concrete)</option>
                     </select>
                 </div>
+                
+                <div style="background: #ecfdf5; padding: 16px; border-radius: 8px; margin-top: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="font-size: 16px; color: #065f46; margin: 0;">💰 Material Prices (ZMW)</h3>
+                        <button onclick="showCitySelector()" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">📍 Select City</button>
+                    </div>
+                    <div style="font-size: 12px; color: #059669; margin-bottom: 12px;">City: <span class="current-city-display">Not selected</span></div>
+                    <div class="input-group" style="margin-bottom: 12px;">
+                        <label>Cement per 50kg Bag (ZMW)</label>
+                        <input type="number" id="cement-price" placeholder="e.g., 120" step="1" min="0">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 12px;">
+                        <label>Sand per m³ (ZMW)</label>
+                        <input type="number" id="sand-price" placeholder="e.g., 350" step="1" min="0">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Aggregate per m³ (ZMW)</label>
+                        <input type="number" id="aggregate-price" placeholder="e.g., 400" step="1" min="0">
+                    </div>
+                </div>
                 <button class="calculate-btn" data-calculator="cement">Calculate</button>
+                <button id="save-cement-project" class="save-project-btn" style="display: none;">💾 Save Project</button>
                 <div id="cement-result" class="result"></div>
             </div>
 
@@ -91,22 +154,49 @@
                     </div>
                 </div>
                 <h2>Brick Calculator</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Calculate bricks and mortar needed for your wall</p>
+                
+                <div class="input-group">
+                    <label>Project Name (Optional)</label>
+                    <input type="text" id="brick-project-name" placeholder="e.g., Shop Perimeter Wall" disabled>
+                </div>
+                
                 <div class="input-group">
                     <label>Wall Length (m)</label>
-                    <input type="number" id="brick-length" placeholder="Enter length" step="0.01" disabled>
+                    <input type="number" id="brick-length" placeholder="e.g., 10" step="0.01" disabled value="10">
                 </div>
                 <div class="input-group">
                     <label>Wall Height (m)</label>
-                    <input type="number" id="brick-height" placeholder="Enter height" step="0.01" disabled>
+                    <input type="number" id="brick-height" placeholder="e.g., 3" step="0.01" disabled value="3">
                 </div>
                 <div class="input-group">
-                    <label>Wall Thickness</label>
-                    <select id="brick-thickness" disabled>
-                        <option value="115">Half Brick (115mm)</option>
-                        <option value="230">Full Brick (230mm)</option>
+                    <label>Brick Size</label>
+                    <select id="brick-size" disabled>
+                        <option value="230x110x76">Standard (230×110×76 mm)</option>
                     </select>
                 </div>
+                <div class="input-group">
+                    <label>Mortar Thickness (mm)</label>
+                    <input type="number" id="brick-mortar" placeholder="e.g., 10" disabled value="10">
+                </div>
+                
+                <div style="background: #ecfdf5; padding: 16px; border-radius: 8px; margin-top: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <h3 style="font-size: 16px; color: #065f46; margin: 0;">💰 Material Prices (ZMW)</h3>
+                        <button onclick="showCitySelector()" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">📍 Select City</button>
+                    </div>
+                    <div style="font-size: 12px; color: #059669; margin-bottom: 12px;">City: <span class="current-city-display">Not selected</span></div>
+                    <div class="input-group" style="margin-bottom: 12px;">
+                        <label>Brick per Piece (ZMW)</label>
+                        <input type="number" id="brick-price" placeholder="e.g., 1.5" step="0.1" min="0" disabled>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Mortar per m³ (ZMW)</label>
+                        <input type="number" id="mortar-price" placeholder="e.g., 800" step="1" min="0" disabled>
+                    </div>
+                </div>
                 <button class="calculate-btn" data-calculator="brick" disabled>Calculate</button>
+                <button id="save-brick-project" class="save-project-btn" style="display: none;" disabled>💾 Save Project</button>
                 <div id="brick-result" class="result"></div>
             </div>
 
@@ -120,6 +210,7 @@
                     </div>
                 </div>
                 <h2>Area Calculator</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Calculate area for different shapes</p>
                 <div class="input-group">
                     <label>Shape</label>
                     <select id="area-shape" disabled>
@@ -130,11 +221,11 @@
                 </div>
                 <div class="input-group">
                     <label id="area-label1">Length (m)</label>
-                    <input type="number" id="area-length" placeholder="Enter value" step="0.01" disabled>
+                    <input type="number" id="area-length" placeholder="Enter value" step="0.01" disabled value="10">
                 </div>
                 <div class="input-group" id="area-width-group">
                     <label id="area-label2">Width (m)</label>
-                    <input type="number" id="area-width" placeholder="Enter value" step="0.01" disabled>
+                    <input type="number" id="area-width" placeholder="Enter value" step="0.01" disabled value="8">
                 </div>
                 <button class="calculate-btn" data-calculator="area" disabled>Calculate</button>
                 <div id="area-result" class="result"></div>
@@ -150,20 +241,84 @@
                     </div>
                 </div>
                 <h2>Volume Calculator</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Calculate volume in cubic metres</p>
+                <div class="input-group">
+                    <label>Shape</label>
+                    <select id="volume-shape" disabled>
+                        <option value="cuboid">Cuboid / Box</option>
+                        <option value="cube">Cube</option>
+                        <option value="cylinder">Cylinder</option>
+                    </select>
+                </div>
                 <div class="input-group">
                     <label>Length (m)</label>
-                    <input type="number" id="vol-length" placeholder="Enter length" step="0.01" disabled>
+                    <input type="number" id="vol-length" placeholder="Enter length" step="0.01" disabled value="5">
                 </div>
                 <div class="input-group">
                     <label>Width (m)</label>
-                    <input type="number" id="vol-width" placeholder="Enter width" step="0.01" disabled>
+                    <input type="number" id="vol-width" placeholder="Enter width" step="0.01" disabled value="4">
                 </div>
                 <div class="input-group">
                     <label>Height (m)</label>
-                    <input type="number" id="vol-height" placeholder="Enter height" step="0.01" disabled>
+                    <input type="number" id="vol-height" placeholder="Enter height" step="0.01" disabled value="3">
                 </div>
                 <button class="calculate-btn" data-calculator="volume" disabled>Calculate</button>
                 <div id="volume-result" class="result"></div>
+            </div>
+
+            <div id="tools-tab" class="tab-content">
+                <h2>🛠️ Builder's Tools</h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Quick conversions and calculations</p>
+                
+                <!-- Unit Converter -->
+                <div style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <h3 style="font-size: 18px; margin-bottom: 16px; color: #1f2937;">🔄 Unit Converter</h3>
+                    
+                    <div class="input-group">
+                        <label>Conversion Type</label>
+                        <select id="converter-type" onchange="updateConverterLabels()">
+                            <option value="cement">Cement Bags ↔ Tonnes</option>
+                            <option value="volume">Cubic Meters ↔ Litres</option>
+                            <option value="area">Square Meters ↔ Hectares</option>
+                            <option value="length">Meters ↔ Feet</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label id="converter-from-label">Cement Bags (50kg)</label>
+                        <input type="number" id="converter-from" placeholder="Enter value" step="0.01" oninput="convertUnit()">
+                    </div>
+                    
+                    <div style="text-align: center; margin: 16px 0; font-size: 24px; color: #f97316;">↕️</div>
+                    
+                    <div class="input-group">
+                        <label id="converter-to-label">Tonnes</label>
+                        <input type="number" id="converter-to" placeholder="Result" readonly style="background: #f9fafb; font-weight: 600; font-size: 18px; color: #059669;">
+                    </div>
+                </div>
+                
+                <!-- Labor Calculator -->
+                <div style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <h3 style="font-size: 18px; margin-bottom: 16px; color: #1f2937;">👷 Labor Cost Calculator</h3>
+                    
+                    <div class="input-group">
+                        <label>Number of Workers</label>
+                        <input type="number" id="labor-workers" placeholder="e.g., 5" step="1" min="1" value="5">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Daily Rate per Worker (ZMW)</label>
+                        <input type="number" id="labor-daily-rate" placeholder="e.g., 150" step="1" min="0" value="150">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Number of Days</label>
+                        <input type="number" id="labor-days" placeholder="e.g., 10" step="1" min="1" value="10">
+                    </div>
+                    
+                    <button class="calculate-btn" onclick="calculateLabor()">Calculate Labor Cost</button>
+                    <div id="labor-result" class="result"></div>
+                </div>
             </div>
         </main>
 
@@ -213,8 +368,32 @@
         </div>
     </div>
 
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <h2>Create New Project</h2>
+            <p class="modal-subtitle">Give your project a name to organize calculations</p>
+            
+            <div class="input-group">
+                <label>Project Name</label>
+                <input type="text" id="new-project-name" placeholder="e.g., Banda House Foundation" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px;">
+            </div>
+            
+            <div class="input-group">
+                <label>Description (Optional)</label>
+                <textarea id="new-project-description" placeholder="Add notes about this project..." style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; min-height: 80px; resize: vertical;"></textarea>
+            </div>
+            
+            <button id="create-project-btn" class="purchase-btn">Create Project</button>
+            <button class="cancel-btn project-cancel-btn">Cancel</button>
+        </div>
+    </div>
+
     <script src="js/db.js"></script>
     <script src="js/calculations.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/prices.js"></script>
+    <script src="js/priceDatabase.js"></script>
+    <script src="js/tools.js"></script>
     <script src="js/billing.js"></script>
     <script src="js/app.js"></script>
 </body>

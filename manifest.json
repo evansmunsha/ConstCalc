@@ -1,5 +1,6 @@
 {
   "name": "Construction Calculator Pro",
+  "id": "",
   "short_name": "ConstCalc",
   "description": "Professional construction calculator for cement, bricks, area, and volume calculations. Perfect for builders and contractors.",
   "start_url": "/",

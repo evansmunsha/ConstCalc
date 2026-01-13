@@ -161,16 +161,25 @@ class BillingManager {
     }
     
     enableProFeatures() {
+        // Enable brick calculator inputs
         const brickLength = document.getElementById('brick-length');
         const brickHeight = document.getElementById('brick-height');
         const brickThickness = document.getElementById('brick-thickness');
+        const brickProjectName = document.getElementById('brick-project-name');
+        const brickPrice = document.getElementById('brick-price');
+        const mortarPrice = document.getElementById('mortar-price');
         
         if (brickLength) brickLength.disabled = false;
         if (brickHeight) brickHeight.disabled = false;
         if (brickThickness) brickThickness.disabled = false;
+        if (brickProjectName) brickProjectName.disabled = false;
+        if (brickPrice) brickPrice.disabled = false;
+        if (mortarPrice) mortarPrice.disabled = false;
         
         document.querySelectorAll('#brick-tab .calculate-btn').forEach(btn => btn.disabled = false);
+        document.querySelectorAll('#brick-tab .save-project-btn').forEach(btn => btn.disabled = false);
         
+        // Enable area calculator inputs
         const areaShape = document.getElementById('area-shape');
         const areaLength = document.getElementById('area-length');
         const areaWidth = document.getElementById('area-width');
@@ -181,6 +190,7 @@ class BillingManager {
         
         document.querySelectorAll('#area-tab .calculate-btn').forEach(btn => btn.disabled = false);
         
+        // Enable volume calculator inputs
         const volLength = document.getElementById('vol-length');
         const volWidth = document.getElementById('vol-width');
         const volHeight = document.getElementById('vol-height');

@@ -26,7 +26,7 @@ body {
 #app {
     max-width: 800px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 1px;
 }
 
 .header {
@@ -140,7 +140,7 @@ h1 {
     box-shadow: var(--shadow);
     padding: 8px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 8px;
     margin-bottom: 16px;
 }
@@ -177,7 +177,7 @@ h1 {
     background: var(--card);
     border-radius: 12px;
     box-shadow: var(--shadow);
-    padding: 24px;
+    padding: 4px;
     margin-bottom: 16px;
 }
 
@@ -281,6 +281,15 @@ h2 {
     padding: 16px;
     border-radius: 8px;
     text-align: center;
+}
+
+.result-item-total {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    grid-column: 1 / -1;
+    border: 2px solid #10b981;
 }
 
 .result-label {
@@ -558,9 +567,171 @@ h2 {
     display: none !important;
 }
 
+.save-project-btn {
+    width: 100%;
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 12px;
+}
+
+.save-project-btn:hover:not(:disabled) {
+    background: #059669;
+}
+
+.save-project-btn:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+.shopping-list-btn {
+    width: 100%;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 16px;
+}
+
+.shopping-list-btn:hover {
+    background: #2563eb;
+}
+
+.project-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.project-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.1);
+}
+
+.project-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.project-card-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.project-card-date {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.project-card-type {
+    display: inline-block;
+    background: #fff7ed;
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.project-card-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.project-card-detail {
+    font-size: 13px;
+}
+
+.project-card-detail strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.project-card-detail span {
+    color: var(--text-light);
+}
+
+.project-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.project-card-actions button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-load {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-load:hover {
+    background: var(--primary-dark);
+}
+
+.btn-delete {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.btn-delete:hover {
+    background: #fecaca;
+}
+
+.city-option {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.city-option:hover {
+    border-color: #10b981;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+}
+
+.city-option.selected {
+    border-color: #10b981;
+    background: #f0fdf4;
+}
+
 @media (max-width: 640px) {
     .tabs {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        overflow-x: auto;
     }
     
     .result-items {
